@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
+namespace API.Helpers
+{
+    public class GlobalVerbRoleRequirement: IAuthorizationRequirement
+{
+    public bool IsAllowed(string role, string verb)
+    {
+        if(string.Equals("Administrador", role, StringComparison.OrdinalIgnoreCase)) return true;
+        if(string.Equals("Gerente", role, StringComparison.OrdinalIgnoreCase)) return true;
+        if(string.Equals("veterinario", role, StringComparison.OrdinalIgnoreCase) && string.Equals("GET",verb, StringComparison.OrdinalIgnoreCase)){
+            return true;
+        };
+          if(string.Equals("propietario", role, StringComparison.OrdinalIgnoreCase) && string.Equals("GET",verb, StringComparison.OrdinalIgnoreCase)){
+            return true;
+        };
+      
+        return false;
+    }
+}
+}
